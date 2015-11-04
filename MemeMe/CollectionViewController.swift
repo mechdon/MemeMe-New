@@ -8,13 +8,13 @@
 
 import UIKit
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class CollectionViewController: UICollectionViewController {
     
     // Declare variables
     
     var sharedModel: AppDelegate {
         get {
-            var object = UIApplication.sharedApplication().delegate as! AppDelegate
+            let object = UIApplication.sharedApplication().delegate as! AppDelegate
             return object
         }
     }
@@ -37,17 +37,17 @@ class CollectionViewController: UICollectionViewController, UICollectionViewData
     
     // Return number of memes for the collection view
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var numberOfItems = self.sharedModel.memes.count
+        let numberOfItems = self.sharedModel.memes.count
         return numberOfItems
     }
     
     // Populate cells in the collection view
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let item = collectionView.dequeueReusableCellWithReuseIdentifier("collectionCell", forIndexPath: indexPath) as! UICollectionViewCell
-        var content: Meme = self.sharedModel.memes[indexPath.row] as Meme
-        var thumbNail: UIImage = content.memedImage
-        var imageView: UIImageView = item.contentView.viewWithTag(100) as! UIImageView
+        let item = collectionView.dequeueReusableCellWithReuseIdentifier("collectionCell", forIndexPath: indexPath) 
+        let content: Meme = self.sharedModel.memes[indexPath.row] as Meme
+        let thumbNail: UIImage = content.memedImage
+        let imageView: UIImageView = item.contentView.viewWithTag(100) as! UIImageView
         imageView.image = thumbNail
         
         return item
@@ -70,8 +70,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewData
         if(self.presentingViewController != nil) {
             self.dismissViewControllerAnimated(true, completion: nil)
         } else {
-            var startVC = self.storyboard?.instantiateInitialViewController() as! CollectionViewController
-            var object = UIApplication.sharedApplication().delegate as! AppDelegate
+            let startVC = self.storyboard?.instantiateInitialViewController() as! CollectionViewController
+            let object = UIApplication.sharedApplication().delegate as! AppDelegate
             object.window!.rootViewController = startVC
         }
 

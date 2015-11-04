@@ -97,7 +97,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     
     // Image picked
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.contentMode = UIViewContentMode.ScaleAspectFit
@@ -166,7 +166,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     func save() {
         
         // Update the Meme
-        var meme = Meme(top: topText.text!, bottom: bottomText.text!, image: imagePickerView.image!, memedImage: self.memedImage)
+        let meme = Meme(top: topText.text!, bottom: bottomText.text!, image: imagePickerView.image!, memedImage: self.memedImage)
         
         // Add it to the memes array on the Application Delegate
         (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
@@ -224,7 +224,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
     }
     self.presentViewController(activityViewController, animated: true, completion: nil)
-    
     }
 
 }

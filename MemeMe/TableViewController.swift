@@ -8,12 +8,12 @@
 
 import UIKit
 
-class TableViewController: UITableViewController,  UITableViewDataSource, UITableViewDelegate {
+class TableViewController: UITableViewController {
     
     // Declare variables
     var sharedModel: AppDelegate {
         get {
-            var object = UIApplication.sharedApplication().delegate as! AppDelegate
+            let object = UIApplication.sharedApplication().delegate as! AppDelegate
             return object
         }
     }
@@ -28,6 +28,7 @@ class TableViewController: UITableViewController,  UITableViewDataSource, UITabl
     
     // Set tableView and reload data
     override func viewWillAppear(animated: Bool) {
+        
         self.sentMemesTableView = self.view.viewWithTag(1) as! UITableView
         self.sentMemesTableView.reloadData()
     }
@@ -37,20 +38,22 @@ class TableViewController: UITableViewController,  UITableViewDataSource, UITabl
     
     // Return number of memes in number of rows in section
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfMemes = self.sharedModel.memes.count
+        let numberOfMemes = self.sharedModel.memes.count
+        print(numberOfMemes)
         return numberOfMemes
     }
     
     // Populate the customs cells of the tableView
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("customCell", forIndexPath: indexPath) as! UITableViewCell
-        var content: Meme = self.sharedModel.memes[indexPath.row] as Meme
-        var combinedtxt = content.top + " " + content.bottom
-        var combinedTextlabel: UILabel = cell.contentView.viewWithTag(102) as! UILabel
+        let cell = tableView.dequeueReusableCellWithIdentifier("customCell", forIndexPath: indexPath) 
+        let content: Meme = self.sharedModel.memes[indexPath.row] as Meme
+        let combinedtxt = content.top + " " + content.bottom
+        print(combinedtxt)
+        let combinedTextlabel: UILabel = cell.contentView.viewWithTag(102) as! UILabel
         combinedTextlabel.text = combinedtxt
-        var cellImageView: UIImageView = cell.contentView.viewWithTag(100) as! UIImageView
-        var thumbNail: UIImage = content.memedImage
+        let cellImageView: UIImageView = cell.contentView.viewWithTag(100) as! UIImageView
+        let thumbNail: UIImage = content.memedImage
         cellImageView.image = thumbNail
         
         return cell
@@ -73,8 +76,8 @@ class TableViewController: UITableViewController,  UITableViewDataSource, UITabl
         if(self.presentingViewController != nil) {
             self.dismissViewControllerAnimated(true, completion: nil)
         } else {
-            var startVC = self.storyboard?.instantiateInitialViewController() as! TableViewController
-            var object = UIApplication.sharedApplication().delegate as! AppDelegate
+            let startVC = self.storyboard?.instantiateInitialViewController() as! TableViewController
+            let object = UIApplication.sharedApplication().delegate as! AppDelegate
             object.window!.rootViewController = startVC
         }
     }
